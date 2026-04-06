@@ -49,13 +49,13 @@ const Index = () => {
     try {
       const result = evaluateDesign(input.title, input.problemStatement, input.description);
 
-      const { error } = await supabase.from("reviews").insert({
+      const { error } = await supabase.from("reviews").insert([{
         title: input.title,
         problem_statement: input.problemStatement,
         description: input.description,
-        feedback: result,
+        feedback: result as any,
         overall_score: result.overallScore,
-      });
+      }]);
 
       if (error) throw error;
 
